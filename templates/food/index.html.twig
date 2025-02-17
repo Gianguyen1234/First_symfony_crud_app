@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Food Index{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4 text-primary">Food Index</h1>
+
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{{ path('app_food_new') }}" class="btn btn-success">
+                <i class="bx bx-plus"></i> Create New
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for food in food %}
+                        <tr>
+                            <td class="text-center">{{ food.id }}</td>
+                            <td>{{ food.name }}</td>
+                            <td class="text-center">{{ food.price | number_format(2) }} USD</td>
+                            <td>{{ food.description is not empty ? food.description : 'No description available' }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('app_food_show', {'id': food.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bx bx-show"></i> Show
+                                </a>
+                                <a href="{{ path('app_food_edit', {'id': food.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bx bx-edit"></i> Edit
+                                </a>
+                                <form method="post" action="{{ path('app_food_delete', {'id': food.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this food?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ food.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bx bx-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">No records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

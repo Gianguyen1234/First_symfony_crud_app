@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Food{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-dark text-white text-center">
+            <h3 class="mb-0"><i class="bx bx-food-menu"></i> Food Details</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ food.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ food.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{ food.price | number_format(2, '.', ',') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ food.description ? food.description : 'No description available' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td>
+                            {% if food.image %}
+                                <img src="{{ asset('uploads/' ~ food.image) }}" alt="{{ food.name }}" class="img-fluid" width="150">
+                            {% else %}
+                                <span class="text-muted">No image available</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('app_food_index') }}" class="btn btn-outline-secondary">
+                    <i class="bx bx-arrow-back"></i> Back to List
+                </a>
+                <a href="{{ path('app_food_edit', {'id': food.id}) }}" class="btn btn-warning">
+                    <i class="bx bx-edit"></i> Edit
+                </a>
+                {{ include('food/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

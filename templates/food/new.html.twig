@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Food{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3 class="mb-0"><i class="bx bx-food-menu"></i> Create New Food</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ path('app_food_new') }}" enctype="multipart/form-data">
+                        {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_label(form.name, 'Food Name', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.name) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.price, 'Price', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.price) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.image, 'Food Image', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.image) }}
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary" type="submit">Save Food</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ path('app_food_index') }}" class="btn btn-outline-secondary">
+                        <i class="bx bx-arrow-back"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
